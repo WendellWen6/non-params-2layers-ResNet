@@ -34,16 +34,17 @@ X_train = normalize(double(transpose(train)));
 Y_train = double(transpose(train_label));
 
 
-X_st = X_train(:,1:500);
-Y_st = Y_train(:,1:500);
-Y_st = repmat(Y_st,500,1);
+X_st = X_train(:,1:50);
+Y_st = Y_train(:,1:50);
+Y_st = repmat(Y_st,3072,1);
 
 X_test = normalize(double(transpose(test)));
 Y_test = double(transpose(test_label));
 
-X_stest = X_test(:,1:100);
-Y_stest = Y_test(:,1:100);
-Y_stest = repmat(Y_stest,100,1);
+X_stest = X_test(:,1:10);
+Y_stest = Y_test(:,1:10);
+Y_stest = repmat(Y_stest,3072,1);
 
+%adding random noise to Y
 
 save("cifar10data",'X_train','Y_train','X_test','Y_test','X_st','Y_st','X_stest','Y_stest');
