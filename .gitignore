@@ -3,4 +3,5 @@ cifar10Test/
 cifar10Train/
 cvx/
 exp/
-cifar10data.mat
+*.mat
+*.asv
