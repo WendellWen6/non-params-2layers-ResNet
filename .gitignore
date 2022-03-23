@@ -4,5 +4,6 @@ cifar10Train/
 cvx/
 exp/
 winedatasets/
+winequality/
 *.mat
 *.asv
