@@ -1,4 +1,4 @@
-function [X_train,Y_train,X_val,Y_val,X_test,Y_test] = loadwinedata(filename,flag)
+function [X_train,Y_train,X_test,Y_test] = loadwinedata(filename,flag)
     data = importdata(filename);
     
     % randomrize the data
@@ -26,15 +26,12 @@ function [X_train,Y_train,X_val,Y_val,X_test,Y_test] = loadwinedata(filename,fla
     end
 
 
-    % split to train, val, test sets
+    % split to train, test sets
 
-    split1 = round(n/5*4);
-    split2 = round(n/10 *9);
+    split1 = round(n/5 *4);
     X_train = X(:,1:split1);
-    X_val = X(:,split1+1:split2);
-    X_test = X(:,split2+1:end);
+    X_test = X(:,split1+1:end);
 
     Y_train = Y(:,1:split1);
-    Y_val = Y(:,split1+1:split2);
-    Y_test = Y(:,split2+1:end);
+    Y_test = Y(:,split1+1:end);
 end
