@@ -3,5 +3,6 @@ cifar10Test/
 cifar10Train/
 cvx/
 exp/
+winedatasets/
 *.mat
 *.asv

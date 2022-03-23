@@ -1,6 +1,6 @@
 N_test = 128;
-T_gt = 64;
-trials = 16;
+T_gt = 2;
+trials = 2;
 
 d = 16;
 n = 512;
