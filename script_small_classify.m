@@ -20,13 +20,26 @@ for iterate = 1:trials
     %load data
     [X,Y,X_test,Y_test] = loadwinedata(filename, method);
     
-    % lp
+    % lp2
     C = relulp2_layer2(X, Y);
     B_lp = inv(C);
     H = C * Y - X;
     A_unscaled = relulp2_layer1(X, H);
     A_lp = rescale_layer1(X, H, A_unscaled);   
     Y_pred_lp = C \ (max(A_lp * X_test, 0) + X_test);
+
+
+    % lp3
+    %C_lp = relulp3_layer2(X, Y);
+    %B_lp = inv(C_lp);
+    %H_lp = C_lp * Y - X;
+    %A_unscaled = relulp3_layer1(X, H_lp);
+    %A_lp = rescale_layer1(X, H_lp, A_unscaled);
+    %Y_pred_lp = C_lp \ (max(A_lp * X_test, 0) + X_test);
+
+    
+
+
     
     % qp
     [C_qp, H_qp] = reluqp2_layer2(X, Y);
@@ -57,7 +70,7 @@ set(get(get(h1(2),'Annotation'),'LegendInformation'),'IconDisplayStyle','off');
 set(get(get(h2(2),'Annotation'),'LegendInformation'),'IconDisplayStyle','off');
 set(get(get(h3(2),'Annotation'),'LegendInformation'),'IconDisplayStyle','off');
 legend('SGD','LP','QP');
-xlabel('Accuracy of classification $||\hat{\mathbf{y}} - \mathbf{y}|| / ||\mathbf{y}||$', 'Interpreter', 'latex');
+xlabel('Accuracy of classification', 'Interpreter', 'latex');
 ylabel('frequency', 'Interpreter', 'latex');
 title('BP-LP-QP on wine datasets with ' + method + ' method on Y');
 

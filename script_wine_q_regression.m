@@ -17,20 +17,22 @@ for iterate = 1:trials
     %load data
     [X,Y,X_test,Y_test] = loadwinequality(method);
     
-    % lp
-    %C = relulp2_layer2(X, Y);
-    %B_lp = inv(C);
-    %H = C * Y - X;
-    %A_unscaled = relulp2_layer1(X, H);
-    %A_lp = rescale_layer1(X, H, A_unscaled);   
-    %Y_pred_lp = C \ (max(A_lp * X_test, 0) + X_test);
+    % lp2
+    C = relulp2_layer2(X, Y);
+    B_lp = inv(C);
+    H = C * Y - X;
+    A_unscaled = relulp2_layer1(X, H);
+    A_lp = rescale_layer1(X, H, A_unscaled);   
+    Y_pred_lp = C \ (max(A_lp * X_test, 0) + X_test);
+    
 
-    C_lp = relulp3_layer2(X, Y);
-    B_lp = inv(C_lp);
-    H_lp = C_lp * Y - X;
-    A_unscaled = relulp3_layer1(X, H_lp);
-    A_lp = rescale_layer1(X, H_lp, A_unscaled);
-    Y_pred_lp = C_lp \ (max(A_lp * X_test, 0) + X_test);
+    % lp3
+    %C_lp = relulp3_layer2(X, Y);
+    %B_lp = inv(C_lp);
+    %H_lp = C_lp * Y - X;
+    %A_unscaled = relulp3_layer1(X, H_lp);
+    %A_lp = rescale_layer1(X, H_lp, A_unscaled);
+    %Y_pred_lp = C_lp \ (max(A_lp * X_test, 0) + X_test);
 
     
     % qp
