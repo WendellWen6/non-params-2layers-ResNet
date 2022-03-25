@@ -16,6 +16,7 @@ for iterate = 1:trials
 
     %load data
     [X,Y,X_test,Y_test] = loadwinequality(method);
+    %[X,Y,X_test,Y_test] = loadresidentialdata(method);
     
     % lp2
     C = relulp2_layer2(X, Y);

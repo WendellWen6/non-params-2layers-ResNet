@@ -3,7 +3,7 @@ clear;
 
 % set hyperparameters
 filename = "winedatasets\wine.data";
-trials = 10;
+trials = 100;
 method = "repeat";
 batchsize = 2;
 i = 1;
