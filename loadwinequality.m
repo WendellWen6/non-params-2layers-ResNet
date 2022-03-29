@@ -19,7 +19,8 @@ function [X_train,Y_train,X_test,Y_test] = loadwinequality(flag)
 
     % addding noise without duplicating    
     elseif flag == "non-repeat"
-        Y = [Y;unifrnd(-0.1,0.1,d-1,n)];
+        %Y = [Y;unifrnd(-0.1,0.1,d-1,n)];
+        Y = [Y;generatenoise(d, 1, n)];
     end
 
     % split to train, test sets
