@@ -4,7 +4,6 @@ clear;
 % set hyperparameters
 trials = 2;
 method = "repeat";
-batchsize = 32;
 i = 1;
 
 Y_errs_lp = zeros(trials, 1);
@@ -48,7 +47,7 @@ for iterate = 1:trials
 
     
     % bp
-    [A_bp, B_bp] = backprop2(X, Y, X_test, Y_test, batchsize, 1e-3, 1e-5, 256);
+    [A_bp, B_bp] = backprop2(X, Y, X_test, Y_test, 32, 1e-3, 1e-5, 256);
     Y_pred_bp = B_bp * (max(A_bp * X_test, 0) + X_test);
     
 
