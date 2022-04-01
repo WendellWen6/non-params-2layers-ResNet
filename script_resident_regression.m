@@ -1,9 +1,8 @@
 clear;
-% running with red wine quality datasets
+% running with resident datasets
 
 % set hyperparameters
-trials = 20;
-method = "repeat";
+trials = 2;
 i = 1;
 
 Y_errs_lp = zeros(trials, 1);
@@ -14,7 +13,7 @@ Y_errs_qp = zeros(trials, 1);
 for iterate = 1:trials
 
     %load data
-    [X,Y,X_test,Y_test] = loadwinequality(method);
+    [X,Y,X_test,Y_test] = loadresidentialdata();
     
     % lp2
     C = relulp2_layer2(X, Y);
@@ -41,34 +40,19 @@ for iterate = 1:trials
     %A_qp = rescale_layer1(X, H_qp, A_unscaled);
     %Y_pred_qp = C_qp \ (max(A_qp * X_test, 0) + X_test);
     
-
-    
-
     
     % bp
-    [A_bp, B_bp] = backprop2(X, Y, X_test, Y_test, 32, 1e-3, 1e-5, 256);
+    [A_bp, B_bp] = backprop2(X, Y, X_test, Y_test, 30, 1e-3, 1e-5, 256);
     Y_pred_bp = B_bp * (max(A_bp * X_test, 0) + X_test);
-    
-
-
 
     % evaluations
-    if method == "repeat"
-        Y_pred_lp = mean(Y_pred_lp);
-        Y_pred_bp = mean(Y_pred_bp);
-        %Y_pred_qp = mean(Y_pred_qp);
-        Y_test = round(mean(Y_test));
+    Y_pred_lp = Y_pred_lp(1:2,:);
+    Y_pred_bp = Y_pred_bp(1:2,:);
+    %Y_pred_qp = Y_pred_qp(1:2,:);
 
-    elseif method == "non-repeat"
-        Y_pred_lp = Y_pred_lp(1,:);
-        Y_pred_bp = Y_pred_bp(1,:);
-        %Y_pred_qp = Y_pred_qp(1,:);
-        Y_test = round(Y_test(1,:));
-    end
-
-    Y_errs_lp(i) = mymse(Y_test, Y_pred_lp); 
-    Y_errs_bp(i) = mymse(Y_test, Y_pred_bp);
-    %Y_errs_qp(i) = mymse(Y_test, Y_pred_qp);
+    Y_errs_lp(i) = mymse(Y_test(1:2,:), Y_pred_lp); 
+    Y_errs_bp(i) = mymse(Y_test(1:2,:), Y_pred_bp);
+    %Y_errs_qp(i) = mymse(Y_test(1:2,:), Y_pred_qp);
     i = i + 1; 
 end
 

@@ -5,7 +5,7 @@ n_test = 100;
 d = 10;
 t = 1;
 i = 1;
-trials = 10;
+trials = 20;
 
 Y_errs_lp = zeros(trials, 1);
 Y_errs_bp = zeros(trials, 1);
@@ -23,17 +23,17 @@ for iterate = 1:trials
     Y = Y(1:t,:);
 
     % padding noise follow same function but different weights
-    %[~,noise,~,~] = generatenoise(d,t,n);
-    %Y = [Y;noise];
-
+    [~,noise,~,~] = generatenoise(d,t,n);
+    Y = [Y;noise];
+    disp(size(Y));
     % padding uniform noise
     %Y = [Y;unifrnd(-0.1,0.1,d-t,n)];
 
     % repeat the target row
-    Y = repmat(Y,d,1);
+    %Y = repmat(Y,d,1);
 
     % with noise or not
-    Y = Y + unifrnd(-0.1,0.1,d,n);
+    %Y = Y + unifrnd(-0.1,0.1,d,n);
     
 
     X_test = randn(d,n_test);
@@ -72,14 +72,9 @@ for iterate = 1:trials
     i = i + 1;
 end
 
-h1 = histfit(Y_errs_lp);
-hold on
-h2 = histfit(Y_errs_bp);
-h3 = histfit(Y_errs_qp);
-set(get(get(h1(2),'Annotation'),'LegendInformation'),'IconDisplayStyle','off');
-set(get(get(h2(2),'Annotation'),'LegendInformation'),'IconDisplayStyle','off');
-set(get(get(h3(2),'Annotation'),'LegendInformation'),'IconDisplayStyle','off');
-legend('LP','SGD','QP');
-xlabel('Mean square errors of LP-BP-QP ', 'Interpreter', 'latex');
-ylabel('frequency', 'Interpreter', 'latex');
-title('LP-BP-QP on synthetic datasets with duplicating method on Y');
+disp(mean(Y_errs_lp));
+disp(std(Y_errs_lp));
+disp(mean(Y_errs_bp));
+disp(std(Y_errs_bp));
+disp(mean(Y_errs_qp));
+disp(std(Y_errs_qp));

@@ -1,6 +1,6 @@
-function [X,Y,X_val,Y_val] = get_cifar10_data(d,n)
+function [X,Y,X_test,Y_test] = get_cifar10_data(d,n)
     % preprocessing the datasets
-    load("cifar10data",'X_train','Y_train','X_val','Y_val');
+    load("cifar10data",'X_train','Y_train','X_test','Y_test');
     
     % do pca on raw train data
     [~, X_train_pca] = pca(X_train, 'NumComponents',d);
@@ -11,15 +11,19 @@ function [X,Y,X_val,Y_val] = get_cifar10_data(d,n)
     % transpose the Y
     Y = Y_train';
     Y = Y(:,1:n);
-    % padding Y by duplicating and adding noise
-    %Y = repmat(Y,d,1);
-    %Y = Y + unifrnd(-0.1,0.1,d,n);
-    % padding without duplicating
-    Y = [Y;unifrnd(-0.1,0.1,d-1,n)];
+    Y = categorical(Y);
+    Y = onehotencode(Y,1);
+
+    if d > 10
+        % padding without duplicating
+        Y = [Y;unifrnd(-0.1,0.1,d-10,n)];      
+    end
         
     % do pca on raw validation data
-    [~, X_val_pca] = pca(X_val, 'NumComponents',d);
-    X_val = X_val_pca';
-    Y_val = Y_val';
+    [~, X_test_pca] = pca(X_test, 'NumComponents',d);
+    X_test = X_test_pca';
+    Y_test = Y_test';
+    Y_test = categorical(Y_test);
+    Y_test = onehotencode(Y_test,1);
     
 end

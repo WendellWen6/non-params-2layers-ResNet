@@ -22,7 +22,9 @@ function [X_train,Y_train,X_test,Y_test] = loadwinedata(filename,flag)
 
     % addding noise without duplicating    
     elseif flag == "non-repeat"
-        Y = [Y;unifrnd(-0.1,0.1,d-1,n)];
+        [~,noise,~,~] = generatenoise(d, 1, n);
+        Y = [Y;noise];
+        %Y = [Y;unifrnd(-0.1,0.1,d-1,n)];
     end
 
 

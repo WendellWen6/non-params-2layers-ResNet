@@ -1,24 +1,38 @@
 clear;
 % running with cifar-10
 
-%load data
-[X,Y,X_val,Y_val] = get_cifar10_data(10,100);
 
-% lp
-C = relulp2_layer2(X, Y);
-B_lp = inv(C);
-H = C * Y - X;
-A_unscaled = relulp2_layer1(X, H);
-A_lp = rescale_layer1(X, H, A_unscaled);
+
+Y_accs_2d_lp = zeros(10, 20);
+x_axis = zeros(10, 1);
+y_axis = zeros(10, 1);
+
+% change dimension number
+for i = 1 : 1
+    %load data
+    d = 10 + i - 1;
+    y_axis(i) = d ;
+    [X,Y,X_test,Y_test] = get_cifar10_data(d,50000);
     
-Y_pred_lp = C \ (max(A_lp * X_val, 0) + X_val);
+    % change training sample number
+    for j = 1 : 20
+        n = 100 + 20 * (j-1);
+        x_axis(j) = n;
+        X_train = X(:,1:n);
+        Y_train = Y(:,1:n);
+        % lp
+        C = relulp2_layer2(X_train, Y_train);
+        B_lp = inv(C);
+        H = C * Y_train - X_train;
+        A_unscaled = relulp2_layer1(X_train, H);
+        A_lp = rescale_layer1(X_train, H, A_unscaled);
+            
+        Y_pred_lp = C \ (max(A_lp * X_test, 0) + X_test);
+        
+        Y_accs_2d_lp(i,j) = calculate_acc(Y_pred_lp, Y_test);
+    end
 
-[Y_errs_lp,acc_lp] = calculate_error_acc(Y_pred_lp(1,:),Y_val);
-% bp
-%[A_bp, B_bp] = backprop2(X, Y, X_val, Y_val, 40, 1e-3, 1e-5, 256);
-%Y_pred_bp = mean(B_bp * (max(A_bp * X_val, 0) + X_val));
-     
-%Y_errs_bp = mean(vecnorm(Y_pred_bp - Y_val) ./ vecnorm(Y_val));
+end
 
 
 

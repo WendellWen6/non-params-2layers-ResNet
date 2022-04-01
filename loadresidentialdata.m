@@ -1,4 +1,4 @@
-function [X_train,Y_train,X_test,Y_test] = loadresidentialdata(flag)
+function [X_train,Y_train,X_test,Y_test] = loadresidentialdata()
 
     % load data
     data = readtable("resident/data",'Range','A3:DE374');
@@ -15,15 +15,9 @@ function [X_train,Y_train,X_test,Y_test] = loadresidentialdata(flag)
     % get Y
     Y = data(:,end-1:end)';
 
-    % addding noise with duplicating   
-    if flag == "repeat"
-        Y = repmat(Y,d,1);
-        Y = Y + unifrnd(-0.1,0.1,d,n);
 
     % addding noise without duplicating    
-    elseif flag == "non-repeat"
-        Y = [Y;unifrnd(-0.1,0.1,d-2,n)];
-    end
+    Y = [Y;unifrnd(-0.1,0.1,d-2,n)];
 
     % split to train, test sets
 

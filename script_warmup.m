@@ -37,3 +37,6 @@ lp_error = mymse(Y_test, Y_pred_lp);
 bp_error = mymse(Y_test, Y_pred_bp);
 qp_error = mymse(Y_test, Y_pred_qp);
 
+disp(lp_error);
+disp(bp_error);
+disp(qp_error);

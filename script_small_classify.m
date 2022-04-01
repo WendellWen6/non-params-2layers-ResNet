@@ -3,8 +3,8 @@ clear;
 
 % set hyperparameters
 filename = "winedatasets\wine.data";
-trials = 100;
-method = "repeat";
+trials = 20;
+method = "non-repeat";
 batchsize = 2;
 i = 1;
 
@@ -69,13 +69,18 @@ h3 = histfit(accs_qp);
 set(get(get(h1(2),'Annotation'),'LegendInformation'),'IconDisplayStyle','off');
 set(get(get(h2(2),'Annotation'),'LegendInformation'),'IconDisplayStyle','off');
 set(get(get(h3(2),'Annotation'),'LegendInformation'),'IconDisplayStyle','off');
-legend('SGD','LP','QP');
+legend('BP','LP','QP');
 xlabel('Accuracy of classification', 'Interpreter', 'latex');
 ylabel('frequency', 'Interpreter', 'latex');
 title('BP-LP-QP on wine datasets with ' + method + ' method on Y');
 
+disp(mean(accs_lp));
+disp(mean(accs_bp));
+disp(mean(accs_qp));
 
-
+disp(std(accs_lp));
+disp(std(accs_bp));
+disp(std(accs_qp));
 
 
 

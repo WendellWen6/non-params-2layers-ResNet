@@ -6,7 +6,7 @@ y_axis = zeros(8, 1);
 
 N_test = 128;
 
-for i = 7 : 7
+for i = 1 : 8
   d = 6 + i * 2;
   y_axis(i) = d;
   [A_g, B_g] = params_gen_res_relu(d, d);

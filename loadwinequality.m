@@ -32,5 +32,6 @@ function [X_train,Y_train,X_test,Y_test] = loadwinequality(flag)
 
     Y_train = Y(:,1:split1);
     Y_test = Y(:,split1+1:end);
+    
 
 end

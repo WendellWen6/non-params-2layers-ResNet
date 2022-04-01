@@ -15,19 +15,16 @@ load('C:\Users\13945\Desktop\honour\code\non-params-2layers-ResNet\cifar-10-batc
 train = [train;data];
 train_label = [train_label; labels];
 
+load('C:\Users\13945\Desktop\honour\code\non-params-2layers-ResNet\cifar-10-batches-mat\data_batch_5.mat');
+train = [train;data];
+train_label = [train_label; labels];
 
 X_train = normalize(double(train));
 Y_train = double(train_label);
-
-
-load('C:\Users\13945\Desktop\honour\code\non-params-2layers-ResNet\cifar-10-batches-mat\data_batch_5.mat');
-X_val = normalize(double(data));
-Y_val = double(labels);
-
 
 load('C:\Users\13945\Desktop\honour\code\non-params-2layers-ResNet\cifar-10-batches-mat\test_batch.mat');
 X_test = normalize(double(data));
 Y_test = double(labels);
 
 
-save("cifar10data",'X_train','Y_train','X_val','Y_val','X_test','Y_test');
+save("cifar10data",'X_train','Y_train','X_test','Y_test');
