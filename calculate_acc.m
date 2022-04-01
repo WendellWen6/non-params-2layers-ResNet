@@ -16,5 +16,5 @@ function acc = calculate_acc(Y_pred,Y)
             acc = acc + 1;
         end
     end
-    acc = acc / n;
+    acc = acc / n * 100;
 end
