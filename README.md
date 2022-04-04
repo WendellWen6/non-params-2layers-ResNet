@@ -20,14 +20,14 @@ Before running, zoom in `cvx/` folder and run `cvx_setup` to set up the cvx.
   
     The dataset is in winequality/ folder;
     
-    script_wine_q_regression.m
+    script_regression.m
     loadwinequality.m
 
   For classification (Wine Datasets):
   
     The dataset is in winedatasets/ folder
 
-    script_small_classify.m
+    script_classification.m
     loadwinedata.m
 
   For classification (CIFAR-10):
@@ -44,6 +44,8 @@ Before running, zoom in `cvx/` folder and run `cvx_setup` to set up the cvx.
     generatenoise.m
     mymse.m
     PadY.m
+    calculate_acc.m
+    calculate_error_acc.m
     
   The code from Dr. Shay Cohen's projects:
     
