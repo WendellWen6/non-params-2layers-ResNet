@@ -36,6 +36,7 @@ Before running, zoom in `cvx/` folder and run `cvx_setup` to set up the cvx.
       `loadwinedata.m`
 
   For classification (CIFAR-10):
+  
     The dataset is in `cifar-10-bathces-mat/` folder;
     Use script `storecifar10.m` to collect data into cifar10data.mat
     The experiments scripts are:
@@ -44,6 +45,7 @@ Before running, zoom in `cvx/` folder and run `cvx_setup` to set up the cvx.
       `script2_cifar10.m`
 
    Some helper functions:
+   
     `generatenoise.m`, 
     `mymse.m`, 
     `PadY.m`
