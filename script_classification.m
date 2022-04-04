@@ -2,11 +2,11 @@ clear;
 % running with wine datasets
 
 % set hyperparameters
-filename = "winedatasets\wine.data";
 trials = 20;
-method = "non-repeat";
-batchsize = 2;
 i = 1;
+
+% Pmethod from ["addnoise", "addmodelnoise", "repeat", "repeatwithnoise","onehot"]
+Pmethod = "repeatwithnoise";
 
 Y_errs_lp = zeros(trials, 1);
 Y_errs_bp = zeros(trials, 1);
@@ -17,29 +17,17 @@ accs_qp = zeros(trials, 1);
 
 for iterate = 1:trials
 
-    %load data
-    [X,Y,X_test,Y_test] = loadwinedata(filename, method);
+    % load data
+    % could load other datasets by writing new load functions
+    [X,Y,X_test,Y_test] = loadwinedata(Pmethod);
     
-    % lp2
+    % lp
     C = relulp2_layer2(X, Y);
     B_lp = inv(C);
     H = C * Y - X;
     A_unscaled = relulp2_layer1(X, H);
     A_lp = rescale_layer1(X, H, A_unscaled);   
     Y_pred_lp = C \ (max(A_lp * X_test, 0) + X_test);
-
-
-    % lp3
-    %C_lp = relulp3_layer2(X, Y);
-    %B_lp = inv(C_lp);
-    %H_lp = C_lp * Y - X;
-    %A_unscaled = relulp3_layer1(X, H_lp);
-    %A_lp = rescale_layer1(X, H_lp, A_unscaled);
-    %Y_pred_lp = C_lp \ (max(A_lp * X_test, 0) + X_test);
-
-    
-
-
     
     % qp
     [C_qp, H_qp] = reluqp2_layer2(X, Y);
@@ -49,14 +37,14 @@ for iterate = 1:trials
     Y_pred_qp = C_qp \ (max(A_qp * X_test, 0) + X_test);
     
     % bp
-    [A_bp, B_bp] = backprop2(X, Y, X_test, Y_test, batchsize, 1e-3, 1e-5, 256);
+    [A_bp, B_bp] = backprop2(X, Y, X_test, Y_test, 2, 1e-3, 1e-5, 256);
     Y_pred_bp = B_bp * (max(A_bp * X_test, 0) + X_test);
     
     % evaluations
     
-    [Y_errs_lp(i), accs_lp(i)] = calculate_error_acc(method,Y_pred_lp,Y_test);
-    [Y_errs_bp(i), accs_bp(i)] = calculate_error_acc(method,Y_pred_bp,Y_test);
-    [Y_errs_qp(i), accs_qp(i)] = calculate_error_acc(method,Y_pred_qp,Y_test);
+    [Y_errs_lp(i), accs_lp(i)] = calculate_error_acc(Pmethod,Y_pred_lp,Y_test);
+    [Y_errs_bp(i), accs_bp(i)] = calculate_error_acc(Pmethod,Y_pred_bp,Y_test);
+    [Y_errs_qp(i), accs_qp(i)] = calculate_error_acc(Pmethod,Y_pred_qp,Y_test);
 
     i = i + 1; 
 end
@@ -72,7 +60,7 @@ set(get(get(h3(2),'Annotation'),'LegendInformation'),'IconDisplayStyle','off');
 legend('BP','LP','QP');
 xlabel('Accuracy of classification', 'Interpreter', 'latex');
 ylabel('frequency', 'Interpreter', 'latex');
-title('BP-LP-QP on wine datasets with ' + method + ' method on Y');
+title('BP-LP-QP on wine datasets with ' + Pmethod + ' method on Y');
 
 disp(mean(accs_lp));
 disp(mean(accs_bp));

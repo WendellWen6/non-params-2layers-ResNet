@@ -1,5 +1,5 @@
-function [X_train,Y_train,X_test,Y_test] = loadwinedata(filename,flag)
-    data = importdata(filename);
+function [X_train,Y_train,X_test,Y_test] = loadwinedata(method)
+    data = importdata("winedatasets\wine.data");
     
     % randomrize the data
     data = data(randperm(size(data,1)),:);
@@ -9,23 +9,8 @@ function [X_train,Y_train,X_test,Y_test] = loadwinedata(filename,flag)
     [d, n] = size(X);
 
     Y = data(:,1)';
-
-    % one-hot encoding the label
-    if flag == "onehot"
-        Y = categorical(Y);
-        Y = onehotencode(Y,1);
-        Y = [Y;unifrnd(-0.1,0.1,d-3,n)];
-    % addding noise with duplicating   
-    elseif flag == "repeat"
-        Y = repmat(Y,d,1);
-        Y = Y + unifrnd(-0.1,0.1,d,n);
-
-    % addding noise without duplicating    
-    elseif flag == "non-repeat"
-        [~,noise,~,~] = generatenoise(d, 1, n);
-        Y = [Y;noise];
-        %Y = [Y;unifrnd(-0.1,0.1,d-1,n)];
-    end
+    
+    Y = padY(Y,method,d);
 
 
     % split to train, test sets

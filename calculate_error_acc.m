@@ -5,7 +5,7 @@ function [err,acc] = calculate_error_acc(method,Y_pred,Y)
     
     [~,n] = size(Y_pred);
 
-    if method == "repeat"
+    if method == "repeat" || method == "repeatwithnoise"
         Y_pred = mean(Y_pred);
         Y = round(mean(Y));
 
@@ -36,7 +36,7 @@ function [err,acc] = calculate_error_acc(method,Y_pred,Y)
         end
         
 
-    elseif method == "non-repeat"
+    elseif method == "addnoise" || method == "addmodelnoise"
         Y_pred = Y_pred(1,:);
         Y = Y(1,:);
 
