@@ -3,18 +3,20 @@ clear;
 
 % set hyperparameters
 trials = 20;
-method = "repeat";
 i = 1;
+Pmethod = "repeat";
+
+
 
 Y_errs_lp = zeros(trials, 1);
 Y_errs_bp = zeros(trials, 1);
-Y_errs_qp = zeros(trials, 1);
+%Y_errs_qp = zeros(trials, 1);
 
 
 for iterate = 1:trials
 
     %load data
-    [X,Y,X_test,Y_test] = loadwinequality(method);
+    [X,Y,X_test,Y_test] = loadwinequality(Pmethod);
     
     % lp2
     C = relulp2_layer2(X, Y);
@@ -53,13 +55,13 @@ for iterate = 1:trials
 
 
     % evaluations
-    if method == "repeat"
+    if Pmethod == "repeat"
         Y_pred_lp = mean(Y_pred_lp);
         Y_pred_bp = mean(Y_pred_bp);
         %Y_pred_qp = mean(Y_pred_qp);
         Y_test = round(mean(Y_test));
 
-    elseif method == "non-repeat"
+    elseif Pmethod == "non-repeat"
         Y_pred_lp = Y_pred_lp(1,:);
         Y_pred_bp = Y_pred_bp(1,:);
         %Y_pred_qp = Y_pred_qp(1,:);
@@ -87,4 +89,4 @@ set(get(get(h2(2),'Annotation'),'LegendInformation'),'IconDisplayStyle','off');
 legend('SGD','LP');
 xlabel('empirical mean of output error of quality of red wine dataset $||\hat{\mathbf{y}} - \mathbf{y}|| / ||\mathbf{y}||$', 'Interpreter', 'latex');
 ylabel('frequency', 'Interpreter', 'latex');
-title('BP-LP on wine datasets with ' + method + ' method on Y');
+title('BP-LP on wine datasets with ' + Pmethod + ' method on Y');

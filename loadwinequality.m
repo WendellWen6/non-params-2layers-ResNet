@@ -6,11 +6,11 @@ function [X_train,Y_train,X_test,Y_test] = loadwinequality(flag)
     data = data(randperm(size(data,1)),:);
 
     % get X, normalize the X by each column (feature)
-    X = normalize(data(:,1:end-1))';
+    X = normalize(data(:,1:end-1)).';
     [d, n] = size(X);
 
     % get Y
-    Y = data(:,end)';
+    Y = data(:,end).';
 
     % addding noise with duplicating   
     if flag == "repeat"
