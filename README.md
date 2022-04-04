@@ -11,10 +11,10 @@ Before running, zoom in `cvx/` folder and run `cvx_setup` to set up the cvx.
 
   For synthetic experiments:
   
-    script_warmup.m
-    script_synthetic1.m
-    script_synthetic2.m
-    script_synthetic2heatmap.m
+    script_warmup.m  -- run the warmup exp
+    script_synthetic1.m -- run with different Y padding methods
+    script_synthetic2.m -- generate data for heatmap
+    script_synthetic2heatmap.m -- generate heatmap
 
   For regression (WineQuality datasets):
   
@@ -36,18 +36,20 @@ Before running, zoom in `cvx/` folder and run `cvx_setup` to set up the cvx.
     Use script storecifar10.m to collect data into cifar10data.mat
     
     get_cifar10_data.m
-    script_cifar10.m
-    script2_cifar10.m
+    script_cifar10.m -- exp with d and n 
+    script2_cifar10.m -- heatmap
 
    Some helper functions:
    
-    generatenoise.m
-    mymse.m
-    PadY.m
-    calculate_acc.m
-    calculate_error_acc.m
+    generatenoise.m -- use our model to generate data to be used as noise
+    mymse.m -- my mean square error functino
+    PadY.m -- padding Y methods
+    calculate_acc.m -- for cifar10 datasets
+    calculate_error_acc.m -- for wine datasets
     
-  The code from Dr. Shay Cohen's projects:
+  The rest of the codes are the core codes of model from Dr. Shay Cohen's projects
+    
+    
     
   
     
