@@ -5,10 +5,10 @@ clear;
 trials = 20;
 i = 1;
 lp3flag = false;
-qpflag = false;
+qpflag = true;
 
 % Pmethod from ["addnoise", "addmodelnoise", "repeat", "repeatwithnoise"]
-Pmethod = "addnoise";
+Pmethod = "addmodelnoise";
 
 
 % store the errors
@@ -95,17 +95,18 @@ end
 
 disp(mean(Y_errs_lp));
 disp(mean(Y_errs_bp));
-%disp(mean(Y_errs_qp));
+disp(mean(Y_errs_qp));
 
+save("addmodelnoise.mat");
 
 h1 = histfit(Y_errs_lp);
 hold on
 h2 = histfit(Y_errs_bp);
-%h3 = histfit(Y_errs_qp);
+h3 = histfit(Y_errs_qp);
 set(get(get(h1(2),'Annotation'),'LegendInformation'),'IconDisplayStyle','off');
 set(get(get(h2(2),'Annotation'),'LegendInformation'),'IconDisplayStyle','off');
-%set(get(get(h3(2),'Annotation'),'LegendInformation'),'IconDisplayStyle','off');
-legend('LP','BP');
-xlabel('MSE of output error of quality of red wine dataset $||\hat{\mathbf{y}} - \mathbf{y}|| / ||\mathbf{y}||$', 'Interpreter', 'latex');
+set(get(get(h3(2),'Annotation'),'LegendInformation'),'IconDisplayStyle','off');
+legend('LP','BP','QP');
+xlabel('MSE of output error of quality of red wine dataset', 'Interpreter', 'latex');
 ylabel('frequency', 'Interpreter', 'latex');
-title('BP-LP on wine datasets with ' + Pmethod + ' method on Y');
+title('BP-LP-QP on wine datasets with ' + Pmethod + ' method on Y');

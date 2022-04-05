@@ -1,7 +1,10 @@
 function [X,Y,X_test,Y_test] = get_cifar10_data(d,n)
     % preprocessing the datasets
-    load("cifar10data",'X_train','Y_train','X_test','Y_test');
-    
+    %load("cifar10data",'X_train','Y_train','X_test','Y_test');
+
+    % with alexnet pretrained features extractions
+    load("cifar10data2",'X_train','Y_train','X_test','Y_test');
+
     % do pca on raw train data
     [~, X_train_pca] = pca(X_train, 'NumComponents',d);
     % transpose the X

@@ -6,5 +6,6 @@ exp/
 winedatasets/
 winequality/
 resident/
+insurance/
 *.mat
 *.asv
