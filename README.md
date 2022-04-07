@@ -36,8 +36,10 @@ Before running, zoom in `cvx/` folder and run `cvx_setup` to set up the cvx.
     Use script storecifar10.m to collect data into cifar10data.mat
     
     get_cifar10_data.m
-    script_cifar10.m -- exp with d and n 
-    script2_cifar10.m -- heatmap
+    script_cifar10.m -- exp with d and n heatmap
+    script2_cifar10.m -- run over whole training set
+    script3_cifar10.m -- with AlexNet to do feature extraction
+    scorecifar2.m -- load after AlexNet do the feature extraction
 
    Some helper functions:
    
@@ -47,8 +49,7 @@ Before running, zoom in `cvx/` folder and run `cvx_setup` to set up the cvx.
     calculate_acc.m -- for cifar10 datasets
     calculate_error_acc.m -- for wine datasets
     
-  The rest of the codes are the core codes of model from Dr. Shay Cohen's projects
-    
+  The rest of the codes are the core codes of model from Dr. Shay Cohen's projects:
     
     
   
